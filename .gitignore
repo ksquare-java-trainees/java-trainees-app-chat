@@ -1,5 +1,6 @@
 # file: ~/.gitignore_global
 .settings
-
+.project
+.classpath
 #Ignore target folder created by maven
 target/
