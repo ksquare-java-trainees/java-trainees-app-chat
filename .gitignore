@@ -4,3 +4,4 @@
 .classpath
 #Ignore target folder created by maven
 target/
+src/main/webapp/*.jsp

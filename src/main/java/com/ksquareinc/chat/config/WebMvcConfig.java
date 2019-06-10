@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.ksquareinc.chat.controller")
+@ComponentScan("com.ksquareinc.chat")
 public class WebMvcConfig implements WebMvcConfigurer{
 
 	// WEBJARS CONFIGURATION ONLY NEED FOR CLIENT

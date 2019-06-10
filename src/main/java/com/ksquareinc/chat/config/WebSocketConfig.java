@@ -9,14 +9,21 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
-
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/app");
-    }
- 
+	
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/messages").setAllowedOrigins("*").withSockJS();
+    }
+    
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+    	registry.enableSimpleBroker("/queue/", "/topic/");
+		registry.setApplicationDestinationPrefixes("/app");
+		
+		//Enables RabbitMQ as Broker
+		/*registry.enableStompBrokerRelay("/topic")
+				.setRelayHost("localhost")
+				.setRelayPort(61613)
+				.setClientLogin("guest")
+				.setClientPasscode("guest");*/
     }
 	
 }

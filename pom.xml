@@ -41,6 +41,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>5.1.5.RELEASE</version>
+			<!-- RABBITMQ DEPENDENCY -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>2.1.6.RELEASE</version>
 		</dependency>
 		<!-- SERVLET DEPENDENCY -->
 		<dependency>
@@ -78,6 +84,12 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.9</version>
 		</dependency>
+		<!-- JACKSON ADDON TO SUPPORT LOCALDATE -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.9.9</version>
+		</dependency>
 		<!-- WEBJARS DEPENDECIES -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -106,9 +118,35 @@
 			<artifactId>spring-security-test</artifactId>
 			<version>5.1.5.RELEASE</version>
 		</dependency>
+		<!-- EXTRAS(?) -->
+		<dependency>
+			<groupId>org.reactivestreams</groupId>
+			<artifactId>reactive-streams</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor.netty</groupId>
+			<artifactId>reactor-netty</artifactId>
+			<version>0.8.8.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<finalName>java-trainees-app-chat</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://localhost:8080/manager/text</url>
+					<path>/</path>
+					<update>true</update>
+					<server>TomcatServer</server>
+					<username>tomcat</username>
+					<password>tomcat</password>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
