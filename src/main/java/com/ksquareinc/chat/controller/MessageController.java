@@ -10,14 +10,13 @@ import org.springframework.stereotype.Controller;
 import com.ksquareinc.chat.model.Message;
 import com.ksquareinc.chat.model.OutputMessage;
 
-@Controller
+//@Controller
 public class MessageController {
 
-	@MessageMapping("/chat")
+	/*@MessageMapping("/chat")
 	@SendTo("/topic/messages")
 	public OutputMessage send(Message message) throws Exception {
 	    String time = new SimpleDateFormat("HH:mm").format(new Date());
 	    return new OutputMessage(message.getFrom(), message.getText(), time);
-	}
-	
+	}*/
 }
