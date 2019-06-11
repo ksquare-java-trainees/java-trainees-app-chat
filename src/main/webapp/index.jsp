@@ -9,7 +9,11 @@
 	     
         <script type="text/javascript">
             var stompClient = null;
-             
+
+            function getAllGroups() {
+            	
+            }
+            
             function setConnected(connected) {
                 document.getElementById('connect').disabled = connected;
                 document.getElementById('disconnect').disabled = !connected;
@@ -100,6 +104,7 @@
             </div>
             <br />
             <div>
+            	<button id="getAllGroups" onclick="getAllGroups();">GetAllGroups</button>
                 <button id="connect" onclick="connect();">Connect</button>
                 <button id="disconnect" disabled="disabled" onclick="disconnect();">
                     Disconnect
