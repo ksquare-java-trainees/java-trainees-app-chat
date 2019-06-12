@@ -1,5 +1,6 @@
 package com.ksquareinc.chat.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Entity(name = "Message")
 @Table(name = "Message")
 @Transactional
-public class Message {
+public class Message implements Serializable {
 	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

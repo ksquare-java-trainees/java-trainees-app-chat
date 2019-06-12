@@ -1,5 +1,6 @@
 package com.ksquareinc.chat.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "Conversation")
 @Table(name = "Conversation")
 @Transactional
-public class Conversation {
+public class Conversation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

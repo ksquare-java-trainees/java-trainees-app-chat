@@ -1,5 +1,6 @@
 package com.ksquareinc.chat.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "User")
 @Table(name = "User")
 @Transactional
-public class User {
+public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
