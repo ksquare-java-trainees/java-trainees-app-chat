@@ -18,6 +18,10 @@ public class OutputMessage {
 		this.topic=topic;
 	}
 	
+	public OutputMessage() {
+		
+	}
+	
 	public String getFrom() {
 		return from;
 	}
