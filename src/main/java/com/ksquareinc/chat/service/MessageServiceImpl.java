@@ -10,7 +10,7 @@ import com.ksquareinc.chat.dao.MessageDao;
 import com.ksquareinc.chat.model.Message;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class MessageServiceImpl implements MessageService {
 
 	@Autowired
