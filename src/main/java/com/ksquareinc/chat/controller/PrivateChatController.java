@@ -7,6 +7,8 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import com.ksquareinc.chat.model.Message;
+
 @Controller
 public class PrivateChatController {
 
@@ -22,10 +24,10 @@ public class PrivateChatController {
 	
 	// Messages between users using a personal subscription 
 	@MessageMapping("/send/message")
-    public Message privateMessage(@Payload Message message){
-        this.simpMessagingTemplate.convertAndSend("/topic/"+message.getTo()  ,message);
-        this.simpMessagingTemplate.convertAndSend("/topic/"+message.getFrom(),message);
-        return message;
+    public void privateMessage(@Payload Message message){
+        //this.simpMessagingTemplate.convertAndSend("/topic/"+message.getTo()  ,message);
+        //this.simpMessagingTemplate.convertAndSend("/topic/"+message.getFrom(),message);
+        //return message;
     }
 	
 }
