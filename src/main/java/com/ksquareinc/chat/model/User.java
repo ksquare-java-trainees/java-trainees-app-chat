@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "User")
-@Table(name = "User")
+@Entity(name = "Users")
+@Table(name = "Users")
 @Transactional
 public class User implements Serializable {
 	
