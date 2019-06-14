@@ -41,7 +41,7 @@ public class Conversation implements Serializable {
 	@JoinColumn(name = "creator", referencedColumnName = "id", nullable = false)
 	private User creator;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "conversation_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 	
