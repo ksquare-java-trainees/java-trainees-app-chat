@@ -1,8 +1,14 @@
 package com.ksquareinc.chat.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,34 +22,41 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody User user) {
 		User newUser = userService.create(user);
-		return ResponseEntity.ok().body("New user added: id = " + newUser.getId() + ", username = " + newUser.getUsername());
+		return ResponseEntity.ok()
+				.body("New user added: id = " + newUser.getId() + ",\n username = " + newUser.getUsername());
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<User> findOne(@PathVariable("id") Long id) {
+		User user = userService.findOne(id);
+		return ResponseEntity.ok().body(user);
+	}
+
+	@GetMapping("/")
+	public ResponseEntity<List<User>> findAll() {
+		List<User> users = userService.findAll();
+		return ResponseEntity.ok().body(users);
+	}
+
+	@PutMapping
+	public ResponseEntity<?> update(@RequestBody User user) {
+		userService.update(user);
+		return ResponseEntity.ok().body("User has been updated successfully \n" + user);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+		userService.deleteById(id);
+		return ResponseEntity.ok().body("User has been deleted successfully");
+	}
+
+	@DeleteMapping
+	public ResponseEntity<?> delete(@RequestBody User user) {
+		userService.delete(user);
+		return ResponseEntity.ok().body("User has been deleted successfully");
 	}
 }
-
-/*Get all group static.
-@GetMapping("/chat/topics")
-public ResponseEntity<List<GroupChat>> getAllGroupChat(){
-	List<GroupChat> list = new ArrayList<GroupChat>();
-	GroupChat gc1=new GroupChat("GroupChat n1", "Luis and Rodrigo");
-	GroupChat gc2=new GroupChat("GroupChat n2", "Pedro and Daniels");
-	list.add(gc1);
-	list.add(gc2);
-	
-	return ResponseEntity.ok().body(list);
-}
-
-@DeleteMapping("/chat/topics/{topic}")
-public ResponseEntity<String> deleteGroupChat(@PathVariable("topic") String topic) {
-	return ResponseEntity.ok().body("Deleted "+topic);
-}
-
-@PostMapping("/chat/topics")
-public ResponseEntity<String> addGroupChat(@RequestBody String topic){
-	return ResponseEntity.ok().body("Added Group "+topic);
-}
-
-@PutMapping("")*/
