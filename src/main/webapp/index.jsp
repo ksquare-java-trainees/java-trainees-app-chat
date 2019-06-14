@@ -45,22 +45,26 @@
 	}
 
 	function sendMessage() {
-		var from = document.getElementById('from').value;
-		var text = document.getElementById('text').value;
 		var channel = document.getElementById('channel').value;
+		var from = document.getElementById('from').value;
+		var currentDate = new Date();
+		var text = document.getElementById('text').value;
 
 		if (channel == '') {
 			stompClient.send("/app/chat/public", {},
 			JSON.stringify({
-				'from' : from,
+				'conversation' : 0,//Fix this
+				'sender' : from,
+				'creationDate' : currentDate,
 				'text' : text
 			}));
 		} else {
 			stompClient.send("/app/chat/" + channel, {},
 			JSON.stringify({
-				'from' : from,
-				'text' : text,
-				'channel' : channel
+				'conversation' : {'id' : new Number(channel)},
+				'sender' : {'id' : new Number(from)},
+				'creationDate' : currentDate,
+				'text' : text
 			}));
 		}
 	}

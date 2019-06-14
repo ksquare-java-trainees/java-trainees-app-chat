@@ -44,7 +44,7 @@ public class ConversationController {
 	@PutMapping
 	public ResponseEntity<?> update(@RequestBody Conversation conversation) {
 		conversationService.update(conversation);
-		return ResponseEntity.ok().body("Conversation has been updated successfully \n" + conversation);
+		return ResponseEntity.ok().body("Conversation has been updated successfully id = " + conversation.getId() + ", name = " + conversation.getName());
 	}
 
 	@DeleteMapping("/{id}")
