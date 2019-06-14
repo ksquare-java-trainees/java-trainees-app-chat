@@ -44,7 +44,7 @@ public class User implements Serializable {
 	public User() {
 		
 	}
-
+	
 	public User(String username, boolean active) {
 		this.username = username;
 		this.active = active;

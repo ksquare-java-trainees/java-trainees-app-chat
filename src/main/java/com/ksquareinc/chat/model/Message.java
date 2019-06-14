@@ -19,9 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Table(name = "Message")
 @Transactional
 public class Message implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

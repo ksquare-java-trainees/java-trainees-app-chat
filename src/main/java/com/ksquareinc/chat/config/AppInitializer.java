@@ -2,11 +2,13 @@ package com.ksquareinc.chat.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.ksquareinc.chat.security.AuthTokenSecurityConfig;
+
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { AppConfig.class };
+		return new Class[] { AppConfig.class, AuthTokenSecurityConfig.class};
 	}
 
 	@Override
