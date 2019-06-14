@@ -88,8 +88,8 @@ public class Message implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Message{" + "id=" + id + "\n" + ", conversation=" + conversation.getName() + ", sender='"
-				+ sender.getUsername() + ", message=" + conversation.getMessages() + ", creation date=" + creationDate
+		return "Message{" + "id = " + id + "\n" + ", conversation = " + conversation + ", sender = "
+				+ sender + ", creation date = " + creationDate + ", message = " + text
 				+ "}";
 	}
 }
