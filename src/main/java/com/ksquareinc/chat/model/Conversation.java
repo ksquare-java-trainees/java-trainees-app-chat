@@ -122,8 +122,8 @@ public class Conversation implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Conversation{" + "id=" + id + "\n"
-				+ ", name=" + name + ", creator='" + creator.getUsername() + "\n"
-				+ ", creationDate=" + creationDate + ", type=" + type + "}";
+		return "Conversation{" + "id = " + id + "\n"
+				+ ", name = " + name + ", creator = " + creator + "\n"
+				+ ", creationDate = " + creationDate + ", type = " + type + "}";
 	}
 }
