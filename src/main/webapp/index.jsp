@@ -9,17 +9,17 @@
              
             function connect() {
             	user = document.querySelector('#fromID').value.trim();
-            	var socket = new SockJS('/ws/messages');
+            	var socket = new SockJS('/chat');
                 stompClient = Stomp.over(socket);
                 setConnected(true);
                 
                 stompClient.connect({
-                	AUTH_API_KEY : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg1NjA0OTYsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhMWEwZWJhMC03OTU0LTRhNTAtYWRlNC03ZWYzY2RhYWEzMTEiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.OzdMRBatl5LB402FSy-UzkN7R1dhCANhNd3C7VcmJAg',
+                	AUTH_USER_TOKEN : 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg3MzMxNDgsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiIwMDg5ODc5OS1jMDA1LTRkMDQtYjliOC05ODA4NmQ5Yjc3ZTAiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.Pno6J7dzHRMd7rHfagErMDLAublADxsB7GEr2hL6gR4',
                 	AUTH_USER_NAME : user
                 }, openChatSocket);
             }
             
-            function openChatSocket(){                
+            function openChatSocket(){
             	stompClient.subscribe("/user/queue/private", onMessage);
             	//stompClient.subscribe("/topic/"+user, onMessage);
             }
