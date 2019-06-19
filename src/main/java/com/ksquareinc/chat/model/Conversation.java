@@ -43,7 +43,7 @@ public class Conversation implements Serializable {
 	@JoinColumn(name = "creator", referencedColumnName = "id", nullable = false)
 	private User creator;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "conversation_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 	
@@ -124,8 +124,8 @@ public class Conversation implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Conversation{" + "id=" + id + "\n"
-				+ ", name=" + name + ", creator='" + creator.getUsername() + "\n"
-				+ ", creationDate=" + creationDate + ", type=" + type + "}";
+		return "Conversation{" + "id = " + id + "\n"
+				+ ", name = " + name + ", creator = " + creator + "\n"
+				+ ", creationDate = " + creationDate + ", type = " + type + "}";
 	}
 }

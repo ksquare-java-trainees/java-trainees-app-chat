@@ -89,6 +89,6 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User{" + "id = " + id + "\n"
-				+ ", username = " + username + ", sender = " + active + "}";
+				+ ", username = " + username + ", active = " + active + "}";
 	}
 }

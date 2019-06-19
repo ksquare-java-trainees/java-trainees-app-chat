@@ -10,7 +10,7 @@ import com.ksquareinc.chat.dao.UserDao;
 import com.ksquareinc.chat.model.User;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
