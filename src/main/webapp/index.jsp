@@ -16,7 +16,10 @@
 		var socket = new SockJS('/java-trainees-app-chat/chat');
 		var channel = document.getElementById('channel').value;
 		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function(frame) {
+		stompClient.connect({
+        	AUTH_API_KEY : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg1NjA0OTYsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhMWEwZWJhMC03OTU0LTRhNTAtYWRlNC03ZWYzY2RhYWEzMTEiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.OzdMRBatl5LB402FSy-UzkN7R1dhCANhNd3C7VcmJAg',
+        	AUTH_USER_NAME : 'Jud'
+        }, function(frame) {
 			setConnected(true);
 			console.log('Connected: ' + frame);
 			if (channel == '') {
