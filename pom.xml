@@ -128,20 +128,5 @@
 
 	<build>
 		<finalName>java-trainees-app-chat</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<url>http://localhost:8080/manager/text</url>
-					<path>/</path>
-					<update>true</update>
-					<server>TomcatServer</server>
-					<username>tomcat</username>
-					<password>tomcat</password>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>
