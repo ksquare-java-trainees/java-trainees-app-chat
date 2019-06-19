@@ -6,14 +6,12 @@
 
 <script type="text/javascript">
 	var stompClient = null;
-
 	function setConnected(connected) {
 		document.getElementById('connect').disabled = connected;
 		document.getElementById('disconnect').disabled = !connected;
 		document.getElementById('conversationDiv').style.visibility = connected ? 'visible'	: 'hidden';
 		document.getElementById('response').innerHTML = '';
 	}
-
 	function connect() {
 		var socket = new SockJS('/java-trainees-app-chat/chat');
 		var channel = document.getElementById('channel').value;
@@ -21,7 +19,6 @@
 		stompClient.connect({}, function(frame) {
 			setConnected(true);
 			console.log('Connected: ' + frame);
-
 			if (channel == '') {
 				stompClient.subscribe('/topic/messages/public', function(
 						messageOutput) {
@@ -35,7 +32,6 @@
 			}
 		});
 	}
-
 	function disconnect() {
 		if (stompClient != null) {
 			stompClient.disconnect();
@@ -43,13 +39,11 @@
 		setConnected(false);
 		console.log("Disconnected");
 	}
-
 	function sendMessage() {
 		var channel = document.getElementById('channel').value;
 		var from = document.getElementById('from').value;
 		var currentDate = new Date();
 		var text = document.getElementById('text').value;
-
 		if (channel == '') {
 			stompClient.send("/app/chat/public", {},
 			JSON.stringify({
@@ -68,7 +62,6 @@
 			}));
 		}
 	}
-
 	function showMessageOutput(messageOutput) {
 		var response = document.getElementById('response');
 		var p = document.createElement('p');
