@@ -18,7 +18,7 @@ import com.ksquareinc.chat.model.Message;
 import com.ksquareinc.chat.service.MessageService;
 
 @RestController
-@RequestMapping("/message")
+@RequestMapping("/api/message")
 public class MessageController {
 
 	@Autowired

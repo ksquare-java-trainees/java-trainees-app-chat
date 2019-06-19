@@ -18,7 +18,7 @@ import com.ksquareinc.chat.model.Conversation;
 import com.ksquareinc.chat.service.ConversationService;
 
 @RestController
-@RequestMapping("/conversation")
+@RequestMapping("/api/conversation")
 public class ConversationController {
 
 	@Autowired

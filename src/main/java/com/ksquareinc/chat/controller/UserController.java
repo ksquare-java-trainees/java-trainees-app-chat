@@ -18,7 +18,7 @@ import com.ksquareinc.chat.model.User;
 import com.ksquareinc.chat.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
