@@ -3,6 +3,7 @@ package com.ksquareinc.chat.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,40 +25,38 @@ public class MessageController {
 	private MessageService messageService;
 	
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody Message message){
+	public ResponseEntity<Message> create(@RequestBody Message message){
 		Message newMessage = messageService.create(message);
-		return ResponseEntity.ok().body("New message added: id = " + newMessage.getId() 
-		+ ", conversation = " + newMessage.getConversation() + ", sender = " + newMessage.getSender() 
-		+ ", creation date = " + newMessage.getCreationDate());
+		return new ResponseEntity<Message>(newMessage, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Message> findOne(@PathVariable("id") Long id) {
 		Message message = messageService.findOne(id);
-		return ResponseEntity.ok().body(message);
+		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 
 	@GetMapping("/")
 	public ResponseEntity<List<Message>> findAll() {
 		List<Message> messages = messageService.findAll();
-		return ResponseEntity.ok().body(messages);
+		return new ResponseEntity<List<Message>>(messages, HttpStatus.OK);
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody Message message) {
+	public ResponseEntity<Message> update(@RequestBody Message message) {
 		messageService.update(message);
-		return ResponseEntity.ok().body("Message has been updated successfully id = " + message.getId() + ", text = " + message.getText());
+		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
 		messageService.deleteById(id);
-		return ResponseEntity.ok().body("Message has been deleted successfully");
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@DeleteMapping
 	public ResponseEntity<?> delete(@RequestBody Message message) {
 		messageService.delete(message);
-		return ResponseEntity.ok().body("Message has been deleted successfully");
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

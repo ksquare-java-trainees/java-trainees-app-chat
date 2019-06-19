@@ -3,6 +3,7 @@ package com.ksquareinc.chat.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,38 +25,38 @@ public class ConversationController {
 	private ConversationService conversationService;
 
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody Conversation conversation) {
+	public ResponseEntity<Conversation> create(@RequestBody Conversation conversation) {
 		Conversation newConversation = conversationService.create(conversation);
-		return ResponseEntity.ok().body("New Conversation added: id = " + newConversation.getId() + ", name = " + newConversation.getName());
+		return new ResponseEntity<Conversation>(newConversation, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Conversation> findOne(@PathVariable("id") Long id) {
 		Conversation conversation = conversationService.findOne(id);
-		return ResponseEntity.ok().body(conversation);
+		return new ResponseEntity<Conversation>(conversation, HttpStatus.OK);
 	}
 
 	@GetMapping("/")
 	public ResponseEntity<List<Conversation>> findAll() {
 		List<Conversation> conversations = conversationService.findAll();
-		return ResponseEntity.ok().body(conversations);
+		return new ResponseEntity<List<Conversation>>(conversations, HttpStatus.OK);
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody Conversation conversation) {
+	public ResponseEntity<Conversation> update(@RequestBody Conversation conversation) {
 		conversationService.update(conversation);
-		return ResponseEntity.ok().body("Conversation has been updated successfully id = " + conversation.getId() + ", name = " + conversation.getName());
+		return new ResponseEntity<Conversation>(conversation, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
 		conversationService.deleteById(id);
-		return ResponseEntity.ok().body("Conversation has been deleted successfully");
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@DeleteMapping
 	public ResponseEntity<?> delete(@RequestBody Conversation conversation) {
 		conversationService.delete(conversation);
-		return ResponseEntity.ok().body("Conversation has been deleted successfully");
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
