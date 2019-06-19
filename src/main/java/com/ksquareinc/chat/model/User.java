@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "User")
-@Table(name = "User")
+@Entity(name = "Users")
+@Table(name = "Users")
 @Transactional
 public class User implements Serializable {
 	
@@ -88,7 +88,7 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + "\n"
-				+ ", username=" + username + ", sender='" + active + "}";
+		return "User{" + "id = " + id + "\n"
+				+ ", username = " + username + ", sender = " + active + "}";
 	}
 }

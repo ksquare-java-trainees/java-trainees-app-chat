@@ -19,31 +19,35 @@ import org.springframework.transaction.annotation.Transactional;
 @Table(name = "Message")
 @Transactional
 public class Message implements Serializable {
-	 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "conversation_id", referencedColumnName = "id", nullable = false)
 	private Conversation conversation;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
 	private User sender;
-	
+
 	@Column(name = "creation_date", nullable = false)
 	private LocalDateTime creationDate;
-	
+
+	@Column(name = "text", nullable = false)
+	private String text;
+
 	public Message() {
-		
+
 	}
-	
-	public Message(Conversation conversation, User sender, LocalDateTime creationDate) {
+
+	public Message(Conversation conversation, User sender, LocalDateTime creationDate, String text) {
 		this.conversation = conversation;
 		this.sender = sender;
 		this.creationDate = creationDate;
+		this.text = text;
 	}
 
 	public Conversation getConversation() {
@@ -70,14 +74,22 @@ public class Message implements Serializable {
 		this.creationDate = creationDate;
 	}
 
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Message{" + "id=" + id + "\n"
-				+ ", conversation=" + conversation.getName() + ", sender='" + sender.getUsername() 
-				+ ", message=" + conversation.getMessages() + ", creation date=" +creationDate+ "}";
+		return "Message{" + "id = " + id + "\n" + ", conversation = " + conversation + ", sender = "
+				+ sender + ", creation date = " + creationDate + ", message = " + text
+				+ "}";
 	}
 }

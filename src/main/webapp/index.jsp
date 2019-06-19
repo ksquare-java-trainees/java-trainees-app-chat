@@ -9,11 +9,13 @@
              
             function connect() {
             	user = document.querySelector('#fromID').value.trim();
-            	var socket = new SockJS('/chat');
+            	var socket = new SockJS('/ws/messages');
                 stompClient = Stomp.over(socket);
                 setConnected(true);
+                
                 stompClient.connect({
-                	name : user
+                	AUTH_API_KEY : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg1NjA0OTYsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhMWEwZWJhMC03OTU0LTRhNTAtYWRlNC03ZWYzY2RhYWEzMTEiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.OzdMRBatl5LB402FSy-UzkN7R1dhCANhNd3C7VcmJAg',
+                	AUTH_USER_NAME : user
                 }, openChatSocket);
             }
             
@@ -51,13 +53,16 @@
             }
             
             function sendSocket() {
+            	var text = document.querySelector('#message').value.trim();
+            	var sender = document.querySelector('#fromID').value.trim();
             	var toId = document.querySelector('#toID').value.trim();
-            	var fromId = document.querySelector('#fromID').value.trim();
-            	var chatMessage = {
-            			message : document.querySelector('#message').value.trim(),
-            			from 	: fromId,
-            			to  	: toId
-            		};
+            	var chatMessage = {};
+            	/*var chatMessage = {
+            			conversation': {'id' : new Number(channel)},
+        				sender : {'username' : sender},
+        				creationDate : currentDate,
+        				text : text
+            		};*/
             	//stompClient.send("/app/send/message", {}, JSON.stringify(chatMessage));
             	stompClient.send("/app/send/private", {}, JSON.stringify(chatMessage));
             	document.querySelector('#message').value = '';
