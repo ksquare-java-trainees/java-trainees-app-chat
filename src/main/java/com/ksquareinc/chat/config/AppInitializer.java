@@ -11,7 +11,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { WebMvcConfig.class, WebSocketConfig.class };
+		return new Class[] { SwaggerConfig.class, WebMvcConfig.class, WebSocketConfig.class };
 	}
 
 	@Override
