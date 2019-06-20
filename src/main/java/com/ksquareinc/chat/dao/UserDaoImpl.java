@@ -28,6 +28,14 @@ public class UserDaoImpl implements UserDao {
 	public User findOne(long id) {
 		return sessionFactory.getCurrentSession().get(User.class, id);
 	}
+	
+	public User findByName(String username) {
+		Query<?> query= sessionFactory.getCurrentSession().
+		        createQuery("from Users where username=:username");
+		query.setParameter("username", username);
+		
+		return (User) query.uniqueResult();
+	}
 
 	public List<User> findAll() {
         Session session = sessionFactory.getCurrentSession();

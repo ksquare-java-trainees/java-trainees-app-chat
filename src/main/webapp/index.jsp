@@ -6,7 +6,7 @@
 <script type="text/javascript">
 
 	var USER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg1NjA0OTYsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhMWEwZWJhMC03OTU0LTRhNTAtYWRlNC03ZWYzY2RhYWEzMTEiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.OzdMRBatl5LB402FSy-UzkN7R1dhCANhNd3C7VcmJAg';
-	var USER_NAME = 'Judith';
+	var USER_NAME;
 
 	var stompClient = null;
 	function setConnected(connected) {
@@ -18,6 +18,7 @@
 	function connect() {
 		var socket = new SockJS('/chat');
 		var channel = document.getElementById('channel').value;
+		USER_NAME = document.getElementById('from').value;
 		stompClient = Stomp.over(socket);
 		stompClient.connect({
         	AUTH_USER_TOKEN : USER_TOKEN,
@@ -25,6 +26,8 @@
         }, function(frame) {
 			setConnected(true);
 			console.log('Connected: ' + frame);
+			stompClient.subscribe("/user/queue/private", showPrivate);
+			
 			if (channel == '') {
 				stompClient.subscribe('/topic/messages/public', function(
 						messageOutput) {
@@ -85,6 +88,36 @@
 			response.appendChild(p);
 		}
 	}
+	
+	function sendPrivate() {
+		var channel = document.getElementById('channel').value;
+		var from = document.getElementById('from').value;
+		var currentDate = new Date();
+		var text = document.getElementById('text').value;
+    	var chatMessage = {
+    			conversation: {'id' : new Number(28)},
+				sender : {username : from},
+				creationDate : currentDate,
+				text : text
+    		};
+    	stompClient.send("/app/send/private", {}, JSON.stringify(chatMessage));
+    }
+	
+	function showPrivate(payload) {
+		var body = JSON.parse(payload.body);
+		
+		var response = document.getElementById('response');
+		var p = document.createElement('p');
+		p.style.wordWrap = 'break-word';
+		
+		var sender = body.sender.username;
+		var text = body.text;
+		
+		p.appendChild(document.createTextNode(sender
+				+ ": " + text));
+		response.appendChild(p);
+	}
+	
 </script>
 </head>
 <body onload="disconnect()">
@@ -105,6 +138,7 @@
 		<div id="conversationDiv">
 			<input type="text" id="text" placeholder="Write a message..." />
 			<button id="sendMessage" onclick="sendMessage();">Send</button>
+			<button id="sendMessage" onclick="sendPrivate();">SendPrivate</button>
 			<p id="response"></p>
 		</div>
 	</div>

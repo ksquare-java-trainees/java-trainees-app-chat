@@ -4,4 +4,6 @@ import com.ksquareinc.chat.model.User;
 
 public interface UserDao extends GenericDao<User> {
 	
+	User findByName(String username);
+	
 }
