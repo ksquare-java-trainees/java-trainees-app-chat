@@ -21,8 +21,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/conversation")
 @Api(value = "Conversation Management System")
+@RequestMapping("/api/conversation")
 public class ConversationController {
 
 	@Autowired

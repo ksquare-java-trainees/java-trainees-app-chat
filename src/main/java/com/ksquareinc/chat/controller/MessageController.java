@@ -21,8 +21,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/message")
 @Api(value = "Message Management System")
+@RequestMapping("/api/message")
 public class MessageController {
 
 	@Autowired

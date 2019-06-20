@@ -5,6 +5,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 <script type="text/javascript">
+
+	var USER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg1NjA0OTYsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhMWEwZWJhMC03OTU0LTRhNTAtYWRlNC03ZWYzY2RhYWEzMTEiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.OzdMRBatl5LB402FSy-UzkN7R1dhCANhNd3C7VcmJAg';
+	var USER_NAME = 'Judith';
+
 	var stompClient = null;
 	function setConnected(connected) {
 		document.getElementById('connect').disabled = connected;
@@ -13,10 +17,13 @@
 		document.getElementById('response').innerHTML = '';
 	}
 	function connect() {
-		var socket = new SockJS('/java-trainees-app-chat/chat');
+		var socket = new SockJS('/chat');
 		var channel = document.getElementById('channel').value;
 		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function(frame) {
+		stompClient.connect({
+        	AUTH_USER_TOKEN : USER_TOKEN,
+        	AUTH_USER_NAME : USER_NAME
+        }, function(frame) {
 			setConnected(true);
 			console.log('Connected: ' + frame);
 			if (channel == '') {
@@ -30,7 +37,7 @@
 					showMessageOutput(JSON.parse(messageOutput.body));
 				});
 			}
-		});
+		}, function(frame){console.log("ERROR CONNECTING!")});
 	}
 	function disconnect() {
 		if (stompClient != null) {
