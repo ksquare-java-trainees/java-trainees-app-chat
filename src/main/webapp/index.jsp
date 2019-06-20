@@ -16,7 +16,7 @@
 		document.getElementById('response').innerHTML = '';
 	}
 	function connect() {
-		var socket = new SockJS('/chat');
+		var socket = new SockJS('/ksquare-chat/chat');
 		var channel = document.getElementById('channel').value;
 		USER_NAME = document.getElementById('from').value;
 		stompClient = Stomp.over(socket);
@@ -105,17 +105,30 @@
 	
 	function showPrivate(payload) {
 		var body = JSON.parse(payload.body);
-		
 		var response = document.getElementById('response');
 		var p = document.createElement('p');
 		p.style.wordWrap = 'break-word';
 		
-		var sender = body.sender.username;
-		var text = body.text;
-		
-		p.appendChild(document.createTextNode(sender
-				+ ": " + text));
-		response.appendChild(p);
+		var type = body.type;
+		if(type == "NOTIFICATION"){
+			var creator = body.creator.username;
+			var subject = body.subject;
+			var description = body.description;
+			var dateBegin = body.dateBegin;
+			p.appendChild(document.createTextNode(
+					"Event Notification - " +
+					"FROM: " + creator  +
+					" Subject: " + subject + 
+					" Description: " + description +
+					" Start date: " + dateBegin));
+			response.appendChild(p);
+		} else {
+			var sender = body.sender.username;
+			var text = body.text;
+			p.appendChild(document.createTextNode(sender
+					+ ": " + text));
+			response.appendChild(p);
+		}
 	}
 	
 </script>
@@ -123,19 +136,16 @@
 <body onload="disconnect()">
 	<div>
 		<div>
-			<input type="text" id="from" placeholder="Choose a nickname" />
-		</div>
-		<div>
-			<input type="text" id="channel" placeholder="Choose a channel" />
-		</div>
-		<br />
-		<div>
-			<button id="connect" onclick="connect();">Connect</button>
-			<button id="disconnect" disabled="disabled" onclick="disconnect();">
-				Disconnect</button>
+			<input type="text" id="from" placeholder="Username" />
+			<br /><br />
+			<button id="connect" onclick="connect();">Connect</button> 
+			<button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
 		</div>
 		<br />
 		<div id="conversationDiv">
+			<div>
+				<input type="text" id="channel" placeholder="Choose a channel" />
+			</div>
 			<input type="text" id="text" placeholder="Write a message..." />
 			<button id="sendMessage" onclick="sendMessage();">Send</button>
 			<button id="sendMessage" onclick="sendPrivate();">SendPrivate</button>

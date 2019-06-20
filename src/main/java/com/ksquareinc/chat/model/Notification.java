@@ -4,100 +4,54 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class Notification implements Serializable {
 
 	private String id;
 	private User creator;
 	private String subject;
-	private boolean isAllDay;
-	private String dateBegin;
-	private List<User> users;
-	private LocalDateTime dateTime;
-	private String details;
+	private LocalDateTime dateBegin;
+	private LocalDateTime dateEnd;
+	private List<User> guests;
+	private String description;
+	private Type type = Type.NOTIFICATION;
 
 	public Notification() {
 
 	}
-
-	public Notification(String subject, User creator, List<User> users, String dateBegin, LocalDateTime dateTime,
-			String details) {
-		this.subject = subject;
+	
+	public Notification(User creator, String subject, LocalDateTime dateBegin, LocalDateTime dateEnd, List<User> guests, String description) {
 		this.creator = creator;
-		this.users = users;
+		this.subject = subject;
 		this.dateBegin = dateBegin;
-		this.dateTime = dateTime;
-		this.details = details;
+		this.dateEnd = dateEnd;
+		this.guests = guests;		
+		this.description = description;
 	}
-
-	public Message toMessage(Notification notification) {
+	
+	public Message toMessage() {
 		Message message = new Message();
-		message.setConversation(new Conversation(notification.getSubject(), notification.creator,
-				notification.getDateTime(), Type.PRIVATE_CHAT));
-		message.setSender(notification.getCreator());
-		message.setCreationDate(notification.getDateTime());
-		message.setText(notification.getDetails() + notification.getUsers().toString() + notification.getDateBegin());
+		message.setSender(this.creator);
+		message.setText(createText());
+		//message.setConversation(new Conversation(notification.getSubject(), notification.creator,
+			//	notification.getDateTime(), Type.PRIVATE_CHAT));
+		//message.setCreationDate(notification.getDateTime());
 		return message;
 	}
-
-	public String getSubject() {
-		return subject;
+	
+	private String createText() {
+		StringBuilder text = new StringBuilder(500);
+		text.append("Subject: " 	+ this.subject 		+ " - ");
+		text.append("More Info: " 	+ this.description 	+ " - ");
+		text.append("Start Date: " 	+ this.dateBegin 	+ " - ");
+		if(this.dateEnd == null) {
+			text.append("All Day");
+		} else {
+			text.append("End Date: " + this.dateEnd);
+		}
+		return text.toString();
 	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-
-	public User getCreator() {
-		return creator;
-	}
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-	public boolean isAllDay() {
-		return isAllDay;
-	}
-
-	public void setAllDay(boolean isAllDay) {
-		this.isAllDay = isAllDay;
-	}
-
-	public String getDateBegin() {
-		return dateBegin;
-	}
-
-	public void setDateBegin(String dateBegin) {
-		this.dateBegin = dateBegin;
-	}
-
-	public String getId() {
-		return id;
-	}
+	
 }
