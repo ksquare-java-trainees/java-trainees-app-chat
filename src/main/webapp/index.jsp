@@ -7,6 +7,7 @@
 
 	var USER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg1NjA0OTYsInVzZXJfbmFtZSI6ImNybWFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhMWEwZWJhMC03OTU0LTRhNTAtYWRlNC03ZWYzY2RhYWEzMTEiLCJjbGllbnRfaWQiOiJjaGF0SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJ0cnVzdCJdfQ.OzdMRBatl5LB402FSy-UzkN7R1dhCANhNd3C7VcmJAg';
 	var USER_NAME;
+	var privateConversationId = 28;
 
 	var stompClient = null;
 	function setConnected(connected) {
@@ -93,9 +94,10 @@
 		var channel = document.getElementById('channel').value;
 		var from = document.getElementById('from').value;
 		var currentDate = new Date();
+		privateConversationId = document.getElementById('channel').value;
 		var text = document.getElementById('text').value;
     	var chatMessage = {
-    			conversation: {'id' : new Number(28)},
+    			conversation: {'id' : new Number(privateConversationId)},
 				sender : {username : from},
 				creationDate : currentDate,
 				text : text
