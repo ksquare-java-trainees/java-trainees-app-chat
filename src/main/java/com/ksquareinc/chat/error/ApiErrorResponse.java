@@ -19,14 +19,9 @@ public class ApiErrorResponse {
 	
 	private List<String> errors;
 	
-	//Remove this one.
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private LocalDateTime timestamp;
 	
-	//Remove this one.
-	private String detail;
-	
-	//Remove this one.
 	private ApiErrorResponse() {
 		timestamp = LocalDateTime.now();
 	}
@@ -40,26 +35,25 @@ public class ApiErrorResponse {
 		this();
 		this.status = status;
 		this.message = "Unexpected error";
-		this.detail = ex.getLocalizedMessage();
+		this.errors = Arrays.asList(ex.getLocalizedMessage());
 	}
 
-	//Fix this one with HttpAuthenticationEntryPoint
-	/*public ApiErrorResponse(HttpStatus status, String message, Throwable ex) {
+	public ApiErrorResponse(HttpStatus status, String message, Throwable ex) {
 		this();
 		this.status = status;
 		this.message = message;
-		this.detail = ex.getLocalizedMessage();
-	}*/
+		this.errors = Arrays.asList(ex.getLocalizedMessage());
+	}
 	
 	public ApiErrorResponse(HttpStatus status, String message, String error) {
-		super();
+		this();
 		this.status = status;
 		this.message = message;
 		this.errors = Arrays.asList(error);
 	}
 	
 	public ApiErrorResponse(HttpStatus status, String message, List<String> errors) {
-		super();
+		this();
 		this.status = status;
 		this.message = message;
 		this.errors = errors;
