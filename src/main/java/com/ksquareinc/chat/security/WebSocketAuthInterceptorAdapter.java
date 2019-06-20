@@ -6,6 +6,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
+
+import com.ksquareinc.chat.model.User;
+import com.ksquareinc.chat.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.Message;
@@ -24,6 +28,8 @@ public class WebSocketAuthInterceptorAdapter implements ChannelInterceptor {
 	
     @Autowired
     private CustomAuthenticationManager customAuthenticationManager;
+    @Autowired
+    private UserService userService;
 
 	@Override
 	public Message<?> preSend(final Message<?> message, final MessageChannel channel) throws AuthenticationException {
@@ -37,8 +43,18 @@ public class WebSocketAuthInterceptorAdapter implements ChannelInterceptor {
 	        String userToken  = accessor.getFirstNativeHeader(tokenHeaderName);
 	        
 	        authenticatedUser = customAuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, userToken));
+	        checkUser(userName);
 	        accessor.setUser(authenticatedUser);
 	    }
 	    return message;
+	}
+	
+	private void checkUser(String userName) {
+		User user = userService.findByName(userName);
+		//IF USER IS NOT IN PUT DATABASE WE NEED TO CREATE IT
+		if(user == null) {
+			user = new User(userName, true);
+			userService.create(user);
+		} 
 	}
 }
