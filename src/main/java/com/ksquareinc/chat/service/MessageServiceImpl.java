@@ -16,32 +16,26 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	private MessageDao messageDao;
 	
-	@Override
 	public Message create(Message message) {
 		return messageDao.create(message);
 	}
 
-	@Override
 	public Message findOne(long id) {
 		return messageDao.findOne(id);
 	}
 
-	@Override
 	public List<Message> findAll() {
 		return messageDao.findAll();
 	}
 
-	@Override
 	public Message update(Message message) {
 		return messageDao.update(message);
 	}
 
-	@Override
 	public void deleteById(long id) {
 		messageDao.deleteById(id);
 	}
 
-	@Override
 	public void delete(Message message) {
 		messageDao.delete(message);
 	}

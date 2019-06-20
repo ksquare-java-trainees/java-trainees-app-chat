@@ -20,18 +20,23 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
 	public User create(User user) {
 		sessionFactory.getCurrentSession().save(user);
 		return user;
 	}
 
-	@Override
 	public User findOne(long id) {
 		return sessionFactory.getCurrentSession().get(User.class, id);
 	}
+	
+	public User findByName(String username) {
+		Query<?> query= sessionFactory.getCurrentSession().
+		        createQuery("from Users where username=:username");
+		query.setParameter("username", username);
+		
+		return (User) query.uniqueResult();
+	}
 
-	@Override
 	public List<User> findAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -42,19 +47,16 @@ public class UserDaoImpl implements UserDao {
         return query.getResultList();
 	}
 
-	@Override
 	public User update(User user) {
         Session session = sessionFactory.getCurrentSession();
         return (User) session.merge(user);
 	}
 
-	@Override
 	public void delete(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(user);
 	}
 
-	@Override
 	public void deleteById(long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = findOne(id);

@@ -11,6 +11,8 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 
@@ -34,12 +36,22 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>RELEASE</version>
+			<version>5.1.7.RELEASE</version>
 		</dependency>
 		<!-- SPRING SECURITY -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.1.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
+			<version>5.1.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-messaging</artifactId>
 			<version>5.1.5.RELEASE</version>
 		</dependency>
 		<!-- SERVLET DEPENDENCY -->
@@ -72,6 +84,12 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.5.jre7</version>
 		</dependency>
+		<!-- LOMBOK DEPENDENCY -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+		</dependency>
 		<!-- JACKSON DATABIND DEPENDENCY -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -99,6 +117,12 @@
 			<artifactId>stomp-websocket</artifactId>
 			<version>2.3.3</version>
 		</dependency>
+		<!-- LOGS -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 		<!-- TEST -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -111,8 +135,18 @@
 			<artifactId>spring-security-test</artifactId>
 			<version>5.1.5.RELEASE</version>
 		</dependency>
+		<!-- SWAGGER DEPENDECIES -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>java-trainees-app-chat</finalName>
 	</build>

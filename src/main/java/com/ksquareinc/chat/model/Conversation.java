@@ -29,6 +29,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Transactional
 public class Conversation implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

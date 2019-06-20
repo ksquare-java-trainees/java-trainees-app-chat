@@ -20,18 +20,15 @@ public class MessageDaoImpl implements MessageDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
 	public Message create(Message message) {
 		sessionFactory.getCurrentSession().save(message);
 		return message;
 	}
 
-	@Override
 	public Message findOne(long id) {
 		return sessionFactory.getCurrentSession().get(Message.class, id);
 	}
 
-	@Override
 	public List<Message> findAll() {
 		Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -42,19 +39,16 @@ public class MessageDaoImpl implements MessageDao{
         return query.getResultList();
 	}
 
-	@Override
 	public Message update(Message message) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Message)session.merge(message);
 	}
 
-	@Override
 	public void delete(Message message) {
 		Session session = sessionFactory.getCurrentSession();
         session.delete(message);
 	}
 
-	@Override
 	public void deleteById(long id) {
         Session session = sessionFactory.getCurrentSession();
         Message message = findOne(id);

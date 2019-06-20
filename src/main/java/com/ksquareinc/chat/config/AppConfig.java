@@ -7,7 +7,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -16,7 +15,9 @@ import static org.hibernate.cfg.AvailableSettings.*;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScans(value = { @ComponentScan("com.ksquareinc.chat.dao"), @ComponentScan("com.ksquareinc.chat.service") })
+@ComponentScans(value = { 
+		@ComponentScan("com.ksquareinc.chat.dao"), 
+		@ComponentScan("com.ksquareinc.chat.service") })
 public class AppConfig {
 
 	@Autowired
@@ -65,4 +66,5 @@ public class AppConfig {
 		transactionManager.setSessionFactory(getSessionFactory().getObject());
 		return transactionManager;
 	}
+	
 }

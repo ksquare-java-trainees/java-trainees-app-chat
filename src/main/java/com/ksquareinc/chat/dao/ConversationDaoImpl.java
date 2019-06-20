@@ -20,18 +20,15 @@ public class ConversationDaoImpl implements ConversationDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
 	public Conversation create(Conversation conversation) {
 		sessionFactory.getCurrentSession().save(conversation);
 		return conversation;
 	}
 
-	@Override
 	public Conversation findOne(long id) {
 		return sessionFactory.getCurrentSession().get(Conversation.class, id);
 	}
 
-	@Override
 	public List<Conversation> findAll() {
 		Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -42,19 +39,16 @@ public class ConversationDaoImpl implements ConversationDao {
         return query.getResultList();
 	}
 
-	@Override
 	public Conversation update(Conversation conversation) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Conversation)session.merge(conversation);
 	}
 
-	@Override
 	public void delete(Conversation conversation) {
 		Session session = sessionFactory.getCurrentSession();
         session.delete(conversation);
 	}
 
-	@Override
 	public void deleteById(long id) {
         Session session = sessionFactory.getCurrentSession();
         Conversation conversation = findOne(id);
