@@ -39,16 +39,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.interceptors(authInterceptorAdapter);
     }
-    /*
-    @Override
-    protected void configureInbound(final MessageSecurityMetadataSourceRegistry messages) {
-        messages.simpDestMatchers("/chat/**","/app/**").authenticated()
-        .anyMessage().authenticated(); 
-    }
-    
-    @Override
-    protected boolean sameOriginDisabled() {
-		return true;
-	}*/
 	
 }

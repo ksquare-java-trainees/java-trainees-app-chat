@@ -37,24 +37,38 @@ public class WebSocketAuthInterceptorAdapter implements ChannelInterceptor {
 	    final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 	
 	    if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-	    	Authentication authenticatedUser = null;
-	    	
-	        String userName = accessor.getFirstNativeHeader(userHeaderName);
-	        String userToken  = accessor.getFirstNativeHeader(tokenHeaderName);
-	        
-	        authenticatedUser = customAuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, userToken));
-	        checkUser(userName);
-	        accessor.setUser(authenticatedUser);
+	    	authenticateUser(accessor);
+	    	setConnect(accessor.getUser().getName(), true);
+	    }else if (StompCommand.DISCONNECT.equals(accessor.getCommand())) {
+	    	setConnect(accessor.getUser().getName(), false);
 	    }
+	    
 	    return message;
 	}
 	
-	private void checkUser(String userName) {
+	private void authenticateUser(StompHeaderAccessor accessor) {
+		Authentication authenticatedUser = null;
+    	
+        String userName = accessor.getFirstNativeHeader(userHeaderName);
+        String userToken  = accessor.getFirstNativeHeader(tokenHeaderName);
+        
+        authenticatedUser = customAuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, userToken));        
+        accessor.setUser(authenticatedUser);
+        isUser(userName);
+	}
+	
+	private void isUser(String userName) {
 		User user = userService.findByName(userName);
-		//IF USER IS NOT IN PUT DATABASE WE NEED TO CREATE IT
+		//IF USER IS NOT IN OUR DATABASE WE NEED TO CREATE IT
 		if(user == null) {
 			user = new User(userName, true);
 			userService.create(user);
 		} 
+	}
+	
+	private void setConnect(String userName, boolean isConnect) {
+    	User user = userService.findByName(userName);
+    	user.setActive(isConnect);
+    	userService.update(user);
 	}
 }
